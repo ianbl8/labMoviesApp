@@ -2,6 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes, Link } from "react-router-dom";
 import HomePage from "./pages/homePage";
+import SiteHeader from "./components/siteHeader";
 import MoviePage from "./pages/movieDetailsPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
@@ -9,14 +10,7 @@ import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 const App = () => {
   return (
     <BrowserRouter>
-      <ul>
-      <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/movies/favourites">Favourites</Link>
-        </li>
-      </ul>
+      <SiteHeader />
       <Routes>
         <Route path="/reviews/:id" element={<MovieReviewPage />} />
         <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
