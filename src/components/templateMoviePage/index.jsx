@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery } from "react-query";
+import Spinner from "../spinner";
 import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
@@ -18,14 +20,18 @@ const styles = {
 };
 
 const TemplateMoviePage = ({ movie, children }) => {
-  const [images, setImages] = useState([]);
+  const { data , error, isLoading, isError } = useQuery(
+    ["images", { id: movie.id }],
+    getMovieImages
+  );
+  if (isLoading) {
+    return <Spinner />;
+  };
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  };
 
-  useEffect(() => {
-    getMovieImages(movie.id).then((images) => {
-      setImages(images);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const images = data.posters;
 
   return (
     <>
